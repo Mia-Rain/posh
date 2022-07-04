@@ -1,0 +1,50 @@
+#!/bin/sh
+[ "$AUTHFILE" ] && {
+  . "${AUTHFILE}"
+} || {
+  while read -r p || [ "$p" ]; do
+    printf '%s\n' "$p"
+  done << 'EOF'
+ERROR: $AUTHFILE must be set
+Please set $AUTHFILE to the location of your authkeys file
+For the time being please use git.unix.lgbt/Mia/fedish to generate one
+In the future an AUTH submod will be made 
+EOF
+  exit 1
+}
+#
+KEY=$(curl -sX "POST" -d client_id=$CLID -d client_secret=$CLSEC -d grant_type="refresh_token" -d refresh_token=$REKEY -L "${URL}/oauth/token")
+KEY="${KEY##*access_token?:?}"; KEY="${KEY%%?,*}"
+echo "AUTHKEY: $KEY" >&2
+# ------ AUTH ^
+IFS=""
+[ "$IN" ] && {
+  in=$(while IFS= read -r p || [ "$p" ]; do
+    printf '%s\n' "$p"
+  done < "${IN}")
+} || {
+  in=$(while IFS= read -r p || [ "$p" ]; do
+    printf '%s\n' "$p"
+  done <&0)
+}
+[ "${#in}" -gt 0 ] || {
+  while read -r p || [ "$p" ]; do
+    printf '%s\n' "$p"
+  done << 'EOF'
+ERROR: NO INPUT
+Please pipe input or set $IN to a file
+EOF
+}
+# ------  SETUP  ^
+printf 'POST IS:\n%s\n' "$in"
+# ------  MEDIA  ⌄
+[ "$MEDIA" -o "$1" = "media" ] && { # if media is enabled | $MEDIA / ./post media can be used
+  echo "MEDIA: $2" >&2
+  ID="$(curl -sX "POST" -L -H "Authorization: Bearer $KEY" -F file=@${2} "${URL}/api/v1/media")"
+  ID="${ID##*id?:?}"; ID="${ID%%?,*}"
+  echo "ID: $ID" >&2
+  ID="=${ID}"
+}
+# ------  POST  ⌄
+curl -sX "POST" -H "Authorization: Bearer $KEY" -d status="$in" -L "${URL}/api/v1/statuses" -d visibility="${VIS:-public}" -d sensitive="$NSFW:-false}" -d media_ids[]${ID} >/dev/null
+# currently only 1 image is supported -- TODO
