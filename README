@@ -3,9 +3,8 @@ posh
 -- micro library to make fedi posts
 ---
 Auth
--- currently an auth lib is missing
--- it is wip and will be pushed soon, please wait till then
--- fedish's auth webapp is slightly broken ATM and I'm not going to fix it
+-- please use https://dicksdeathabove.xyz/~mia/fauth
+-- to generate $AUTHFILE
 ---
 Usage
 -- set $IN = post file path

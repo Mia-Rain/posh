@@ -7,8 +7,7 @@
   done << 'EOF'
 ERROR: $AUTHFILE must be set
 Please set $AUTHFILE to the location of your authkeys file
-For the time being please use git.unix.lgbt/Mia/fedish to generate one
-In the future an AUTH submod will be made 
+https://dicksdeathabove.xyz/~mia/fauth can be used to generate one
 EOF
   exit 1
 }
