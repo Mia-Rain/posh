@@ -1,6 +1,6 @@
 #!/bin/sh
-[ "$AUTHFILE" ] && {
-  . "${AUTHFILE}"
+[ "$AUTHFILE" -o -f ./authkeys ] && {
+  . "${AUTHFILE:-./authkeys}"
 } || {
   while read -r p || [ "$p" ]; do
     printf '%s\n' "$p"
