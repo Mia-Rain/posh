@@ -45,5 +45,5 @@ printf 'POST IS:\n%s\n' "$in"
   ID="=${ID}"
 }
 # ------  POST  ⌄
-curl -sX "POST" -H "Authorization: Bearer $KEY" -d status="$in" -L "${URL}/api/v1/statuses" -d visibility="${VIS:-public}" -d sensitive="$NSFW:-false}" -d media_ids[]${ID} >/dev/null
+curl -sX "POST" -H "Authorization: Bearer $KEY" -d status="$in" -L "${URL}/api/v1/statuses" -d visibility="${VIS:-public}" -d sensitive="${NSFW:-false}" -d media_ids[]${ID} >/dev/null
 # currently only 1 image is supported -- TODO
