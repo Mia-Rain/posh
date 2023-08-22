@@ -7,7 +7,7 @@
   done << 'EOF'
 ERROR: $AUTHFILE must be set
 Please set $AUTHFILE to the location of your authkeys file
-https://dicksdeathabove.xyz/~mia/fauth can be used to generate one
+ssh://g.transcendent.ink/fauth can be used to generate one
 EOF
   exit 1
 }
