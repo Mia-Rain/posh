@@ -3,8 +3,8 @@ posh
 -- micro library to make fedi posts
 ---
 Auth
--- please use https://dicksdeathabove.xyz/~mia/fauth
--- to generate $AUTHFILE
+-- please use ssh://g.transcendent.ink/fauth
+-- to generate a $AUTHFILE
 ---
 Usage
 -- set $IN = post file path
